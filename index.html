@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Pistachio Hub</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
 
   <style>
     * {
@@ -18,81 +18,96 @@
     body {
       background: #020617;
       color: #e5e7eb;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
       height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    .container {
+    .wrap {
       text-align: center;
-      max-width: 500px;
+      max-width: 480px;
       width: 100%;
       padding: 20px;
     }
 
     h1 {
-      font-size: 2.5rem;
-      font-weight: 600;
-      margin-bottom: 10px;
+      font-size: 2.2rem;
+      font-weight: 500;
+      margin-bottom: 6px;
     }
 
-    p {
+    .sub {
+      font-size: 0.85rem;
+      color: #6b7280;
+      margin-bottom: 25px;
+    }
+
+    .box {
+      background: #020617;
+      border: 1px solid #111827;
+      border-radius: 8px;
+      padding: 12px;
+      font-size: 0.75rem;
       color: #9ca3af;
-      font-size: 0.95rem;
-      margin-bottom: 30px;
+      text-align: left;
+      word-break: break-all;
+      margin-bottom: 15px;
     }
 
     .btn {
-      padding: 12px 24px;
-      border-radius: 8px;
-      border: 1px solid #1f2937;
+      width: 100%;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #111827;
       background: #020617;
       color: #e5e7eb;
+      font-size: 0.8rem;
       cursor: pointer;
-      font-size: 0.9rem;
-      transition: 0.2s;
+      transition: 0.15s;
     }
 
     .btn:hover {
-      background: #0f172a;
-      border-color: #374151;
+      background: #030a1a;
     }
 
     .status {
-      margin-top: 20px;
-      font-size: 0.8rem;
+      margin-top: 15px;
+      font-size: 0.7rem;
       color: #6b7280;
     }
 
     .dot {
-      display: inline-block;
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
+      width: 6px;
+      height: 6px;
       background: #22c55e;
-      margin-right: 6px;
+      border-radius: 50%;
+      display: inline-block;
+      margin-right: 5px;
     }
-
   </style>
 </head>
 <body>
 
-  <div class="container">
+  <div class="wrap">
     <h1>Pistachio Hub</h1>
-    <p>Clean, fast, and minimal script.</p>
+    <div class="sub">loader</div>
 
-    <button class="btn" onclick="downloadScript()">Download</button>
+    <div class="box" id="script">
+      loadstring(game:HttpGet("https://pistachiolua.xyz/script.lua"))()
+    </div>
+
+    <button class="btn" onclick="copyScript()">Copy</button>
 
     <div class="status">
-      <span class="dot"></span> Online
+      <span class="dot"></span> online
     </div>
   </div>
 
   <script>
-    function downloadScript() {
-      window.location.href = "https://your-download-link.com";
+    function copyScript() {
+      const text = document.getElementById('script').innerText;
+      navigator.clipboard.writeText(text);
     }
   </script>
 
