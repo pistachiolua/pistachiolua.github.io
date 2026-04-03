@@ -3,112 +3,78 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pistachio Hub</title>
+  <title>pistachio</title>
 
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
 
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'JetBrains Mono', monospace;
-    }
+    * { margin:0; padding:0; box-sizing:border-box; font-family:'JetBrains Mono', monospace; }
 
     body {
-      background: #020617;
-      color: #e5e7eb;
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      animation: fadeIn 1s ease forwards;
-      opacity: 0;
+      background:#020617;
+      color:#9ca3af;
+      height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      opacity:0;
+      animation:fade 0.8s ease forwards;
     }
 
-    @keyframes fadeIn {
-      to { opacity: 1; }
+    @keyframes fade { to { opacity:1; } }
+
+    .wrap { text-align:left; }
+
+    .line {
+      font-size:0.75rem;
+      cursor:pointer;
+      white-space:nowrap;
     }
 
-    .panel {
-      border: 1px solid #111827;
-      border-radius: 10px;
-      padding: 20px;
-      width: 420px;
-      background: #020617;
-      box-shadow: 0 0 0 1px rgba(255,255,255,0.02);
-    }
+    .line:hover { color:#e5e7eb; }
 
     .top {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.7rem;
-      color: #6b7280;
-      margin-bottom: 15px;
-    }
-
-    .title {
-      color: #e5e7eb;
-    }
-
-    .version {
-      opacity: 0.6;
-    }
-
-    .terminal {
-      background: #010409;
-      border: 1px solid #111827;
-      border-radius: 6px;
-      padding: 12px;
-      font-size: 0.75rem;
-      color: #9ca3af;
-      cursor: pointer;
-      transition: 0.15s;
-    }
-
-    .terminal:hover {
-      background: #020617;
+      display:flex;
+      justify-content:space-between;
+      margin-bottom:6px;
+      font-size:0.65rem;
+      color:#6b7280;
     }
 
     .copied {
-      margin-top: 10px;
-      font-size: 0.7rem;
-      color: #22c55e;
-      opacity: 0;
-      transition: 0.2s;
+      font-size:0.65rem;
+      color:#22c55e;
+      opacity:0;
+      transition:0.15s;
+      margin-top:4px;
     }
 
-    .copied.show {
-      opacity: 1;
-    }
+    .copied.show { opacity:1; }
+
   </style>
 </head>
 <body>
 
-  <div class="panel">
+  <div class="wrap">
     <div class="top">
-      <span class="title">pistachio hub</span>
-      <span class="version">v1.0.0</span>
+      <span>pistachio</span>
+      <span>v1.0.0</span>
     </div>
 
-    <div class="terminal" onclick="copyScript()" id="script">
-      loadstring(game:HttpGet("https://pistachiolua.xyz/script.lua"))()
+    <div class="line" onclick="copy()" id="script">
+      &gt; loadstring(game:HttpGet("https://pistachiolua.xyz/script.lua"))()
     </div>
 
-    <div class="copied" id="copied">copied</div>
+    <div class="copied" id="c">copied</div>
   </div>
 
   <script>
-    function copyScript() {
-      const text = document.getElementById('script').innerText;
-      navigator.clipboard.writeText(text);
-
-      const el = document.getElementById('copied');
-      el.classList.add('show');
-
-      setTimeout(() => {
-        el.classList.remove('show');
-      }, 1000);
+    function copy(){
+      const t=document.getElementById('script').innerText.replace('> ','');
+      navigator.clipboard.writeText(t);
+      const c=document.getElementById('c');
+      c.classList.add('show');
+      setTimeout(()=>c.classList.remove('show'),800);
     }
   </script>
 
