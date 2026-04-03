@@ -4,87 +4,120 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Pistachio Hub</title>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
 
-    body {
-      background: #0f172a;
-      color: #e2e8f0;
-      line-height: 1.6;
+  <!-- Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
     }
 
+    body {
+      background: radial-gradient(circle at top, #0f172a, #020617);
+      color: #e5e7eb;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
     header {
+      position: fixed;
+      width: 100%;
+      top: 0;
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 20px 40px;
-      background: #020617;
-      border-bottom: 1px solid #1e293b;
+      backdrop-filter: blur(10px);
+      background: rgba(2, 6, 23, 0.6);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      z-index: 1000;
     }
 
     header h1 {
+      font-size: 1.2rem;
       color: #a3e635;
+      font-weight: 600;
     }
 
     nav a {
       margin-left: 20px;
-      color: #94a3b8;
+      color: #9ca3af;
       text-decoration: none;
+      font-size: 0.9rem;
       transition: 0.3s;
     }
 
-    nav a:hover { color: #a3e635; }
+    nav a:hover {
+      color: #fff;
+    }
 
+    /* HERO */
     .hero {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
       text-align: center;
-      padding: 100px 20px;
+      padding: 0 20px;
     }
 
     .hero h2 {
-      font-size: 3rem;
+      font-size: 3.5rem;
+      font-weight: 700;
+      background: linear-gradient(90deg, #a3e635, #4ade80);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
       margin-bottom: 20px;
-      color: #a3e635;
     }
 
     .hero p {
-      color: #94a3b8;
       max-width: 600px;
-      margin: 0 auto 30px;
+      color: #9ca3af;
+      margin-bottom: 30px;
     }
 
     .btn {
-      padding: 12px 24px;
+      padding: 14px 28px;
+      border-radius: 12px;
       border: none;
-      border-radius: 8px;
-      background: #a3e635;
-      color: #020617;
+      font-weight: 600;
       cursor: pointer;
-      font-weight: bold;
+      background: linear-gradient(135deg, #a3e635, #4ade80);
+      color: #020617;
+      box-shadow: 0 0 20px rgba(163, 230, 53, 0.4);
       transition: 0.3s;
     }
 
     .btn:hover {
-      background: #84cc16;
+      transform: translateY(-2px);
+      box-shadow: 0 0 30px rgba(163, 230, 53, 0.7);
     }
 
+    /* FEATURES */
     .features {
+      padding: 100px 40px;
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-      padding: 60px 40px;
+      gap: 25px;
     }
 
     .card {
-      background: #020617;
-      padding: 20px;
-      border-radius: 16px;
-      border: 1px solid #1e293b;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.05);
+      backdrop-filter: blur(12px);
+      border-radius: 20px;
+      padding: 25px;
       transition: 0.3s;
     }
 
     .card:hover {
-      transform: translateY(-5px);
-      border-color: #a3e635;
+      transform: translateY(-6px);
+      border-color: rgba(163,230,53,0.5);
     }
 
     .card h3 {
@@ -92,20 +125,59 @@
       color: #a3e635;
     }
 
-    .download {
-      text-align: center;
-      padding: 80px 20px;
+    .card p {
+      color: #9ca3af;
+      font-size: 0.9rem;
     }
 
+    /* DOWNLOAD */
+    .download {
+      text-align: center;
+      padding: 100px 20px;
+    }
+
+    .download h2 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+
+    .download p {
+      color: #9ca3af;
+      margin-bottom: 20px;
+    }
+
+    /* FOOTER */
     footer {
       text-align: center;
-      padding: 20px;
-      border-top: 1px solid #1e293b;
-      color: #64748b;
+      padding: 30px;
+      color: #6b7280;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+
+    /* BACKGROUND GLOW */
+    .glow {
+      position: fixed;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(163,230,53,0.15), transparent);
+      filter: blur(100px);
+      z-index: -1;
+      animation: float 10s infinite alternate ease-in-out;
+    }
+
+    .glow:nth-child(1) { top: -100px; left: -100px; }
+    .glow:nth-child(2) { bottom: -100px; right: -100px; }
+
+    @keyframes float {
+      from { transform: translateY(0px); }
+      to { transform: translateY(40px); }
     }
   </style>
 </head>
 <body>
+
+  <div class="glow"></div>
+  <div class="glow"></div>
 
   <header>
     <h1>Pistachio Hub</h1>
@@ -116,34 +188,34 @@
   </header>
 
   <section class="hero">
-    <h2>Next-Level Script Power</h2>
-    <p>Pistachio Hub is a clean, powerful, and lightweight script designed to elevate your workflow.</p>
-    <button class="btn" onclick="scrollToDownload()">Get Started</button>
+    <h2>Pistachio Hub</h2>
+    <p>Clean. Fast. Powerful. The next-gen script built for performance and simplicity.</p>
+    <button class="btn" onclick="scrollToDownload()">Download</button>
   </section>
 
   <section id="features" class="features">
     <div class="card">
-      <h3>⚡ Fast</h3>
-      <p>Optimized for performance with minimal overhead.</p>
+      <h3>⚡ Blazing Fast</h3>
+      <p>Optimized for speed and efficiency with zero bloat.</p>
     </div>
     <div class="card">
-      <h3>🎯 Easy</h3>
-      <p>Simple integration and intuitive usage.</p>
+      <h3>🎯 Simple UI</h3>
+      <p>Clean interface designed for ease of use.</p>
     </div>
     <div class="card">
       <h3>🔒 Secure</h3>
-      <p>Built with safety and reliability in mind.</p>
+      <p>Safe and reliable performance you can trust.</p>
     </div>
   </section>
 
   <section id="download" class="download">
-    <h2>Download Pistachio Hub</h2>
-    <p>Start using it today and upgrade your scripts.</p>
+    <h2>Get Pistachio Hub</h2>
+    <p>Download now and level up your scripts.</p>
     <button class="btn" onclick="downloadScript()">Download</button>
   </section>
 
   <footer>
-    <p>© 2026 Pistachio Hub. All rights reserved.</p>
+    <p>© 2026 Pistachio Hub</p>
   </footer>
 
   <script>
@@ -152,8 +224,8 @@
     }
 
     function downloadScript() {
-      alert('Replace this with your real download link!');
-      // window.location.href = "YOUR_DOWNLOAD_LINK";
+      // Replace with your actual link
+      window.location.href = "https://your-download-link.com";
     }
   </script>
 
