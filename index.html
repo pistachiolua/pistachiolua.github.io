@@ -19,19 +19,12 @@
       justify-content:center;
       opacity:0;
       animation:fade 0.8s ease forwards;
+      cursor:pointer;
     }
 
     @keyframes fade { to { opacity:1; } }
 
     .wrap { text-align:left; }
-
-    .line {
-      font-size:0.75rem;
-      cursor:pointer;
-      white-space:nowrap;
-    }
-
-    .line:hover { color:#e5e7eb; }
 
     .top {
       display:flex;
@@ -39,6 +32,24 @@
       margin-bottom:6px;
       font-size:0.65rem;
       color:#6b7280;
+    }
+
+    .line {
+      font-size:0.75rem;
+      white-space:nowrap;
+    }
+
+    .cursor {
+      display:inline-block;
+      width:6px;
+      margin-left:2px;
+      background:#9ca3af;
+      animation:blink 1s infinite;
+    }
+
+    @keyframes blink {
+      0%,50%,100% { opacity:1; }
+      25%,75% { opacity:0; }
     }
 
     .copied {
@@ -51,30 +62,67 @@
 
     .copied.show { opacity:1; }
 
+    /* glitch effect */
+    .glitch {
+      animation:glitch 0.2s;
+    }
+
+    @keyframes glitch {
+      0% { transform:translate(0); }
+      25% { transform:translate(-1px,1px); }
+      50% { transform:translate(1px,-1px); }
+      75% { transform:translate(-1px,-1px); }
+      100% { transform:translate(0); }
+    }
+
   </style>
 </head>
-<body>
+<body onclick="copy()">
 
-  <div class="wrap">
+  <div class="wrap" id="wrap">
     <div class="top">
       <span>pistachio</span>
       <span>v1.0.0</span>
     </div>
 
-    <div class="line" onclick="copy()" id="script">
-      &gt; loadstring(game:HttpGet("https://pistachiolua.xyz/script.lua"))()
-    </div>
+    <div class="line" id="script"></div>
 
     <div class="copied" id="c">copied</div>
   </div>
 
   <script>
+    const text = '> loadstring(game:HttpGet("https://pistachiolua.xyz/script.lua"))()';
+    let i = 0;
+    let clicks = 0;
+
+    function type(){
+      if(i < text.length){
+        document.getElementById('script').innerHTML = text.slice(0,i) + '<span class="cursor"></span>';
+        i++;
+        const delay = Math.random() * 40 + 10; // human typing
+        setTimeout(type, delay);
+      } else {
+        document.getElementById('script').innerHTML = text + '<span class="cursor"></span>';
+      }
+    }
+
+    type();
+
     function copy(){
-      const t=document.getElementById('script').innerText.replace('> ','');
+      const t = text.replace('> ','');
       navigator.clipboard.writeText(t);
+
       const c=document.getElementById('c');
       c.classList.add('show');
       setTimeout(()=>c.classList.remove('show'),800);
+
+      clicks++;
+      if(clicks > 5){
+        const wrap = document.getElementById('wrap');
+        wrap.classList.add('glitch');
+        setTimeout(()=>wrap.classList.remove('glitch'),200);
+        clicks = 0;
+      }
     }
   </script>
 
