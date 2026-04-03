@@ -62,7 +62,6 @@
 
     .copied.show { opacity:1; }
 
-    /* glitch effect */
     .glitch {
       animation:glitch 0.2s;
     }
@@ -74,7 +73,6 @@
       75% { transform:translate(-1px,-1px); }
       100% { transform:translate(0); }
     }
-
   </style>
 </head>
 <body onclick="copy()">
@@ -82,7 +80,7 @@
   <div class="wrap" id="wrap">
     <div class="top">
       <span>pistachio</span>
-      <span>v1.0.0</span>
+      <span id="version">v...</span>
     </div>
 
     <div class="line" id="script"></div>
@@ -95,11 +93,12 @@
     let i = 0;
     let clicks = 0;
 
+    // typing
     function type(){
       if(i < text.length){
         document.getElementById('script').innerHTML = text.slice(0,i) + '<span class="cursor"></span>';
         i++;
-        const delay = Math.random() * 40 + 10; // human typing
+        const delay = Math.random() * 40 + 10;
         setTimeout(type, delay);
       } else {
         document.getElementById('script').innerHTML = text + '<span class="cursor"></span>';
@@ -108,9 +107,25 @@
 
     type();
 
+    // tiny tick sound
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    function tick(){
+      const o = audioCtx.createOscillator();
+      const g = audioCtx.createGain();
+      o.connect(g);
+      g.connect(audioCtx.destination);
+      o.frequency.value = 800;
+      g.gain.value = 0.01; // VERY quiet
+      o.start();
+      o.stop(audioCtx.currentTime + 0.02);
+    }
+
+    // copy
     function copy(){
       const t = text.replace('> ','');
       navigator.clipboard.writeText(t);
+
+      tick();
 
       const c=document.getElementById('c');
       c.classList.add('show');
@@ -124,6 +139,16 @@
         clicks = 0;
       }
     }
+
+    // dynamic version fetch
+    fetch('https://pistachiolua.xyz/version.txt')
+      .then(res => res.text())
+      .then(v => {
+        document.getElementById('version').innerText = v.trim();
+      })
+      .catch(() => {
+        document.getElementById('version').innerText = 'v1.0.0';
+      });
   </script>
 
 </body>
